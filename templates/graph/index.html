@@ -1,0 +1,195 @@
+{% load static %}
+
+<html>
+<head></head>
+<body>
+
+<div style="display:box; display:-webkit-box; diplay:-moz-box; width:100%; font-size:12px">
+
+  <div style="width:450px;">
+<pre>
+指定可能にする予定の定数（現時点のグラフ描画に用いてる物のみを列挙）
+
+ファイル１
+    FILE1 = 'c_1.fits'
+ファイル２
+    FILE2 = 'c_moment2.fits'
+
+座標
+    RA_MIN = '03h19m48.20s', RA_MAX = '03h19m48.13s'
+    DEC_MIN = '41d30m42.5s', DEC_MAX = '41d30m41.7s'
+
+等高線レベル設定
+    MIN_LV = 0.005157
+    NSEQ = [-1, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+
+グラフ描画時ラベル文言等
+    XLABEL = 'RA'
+    YLABEL = 'DEC'
+
+グラフサイズ
+　　SIZE = 11
+</pre>
+=======設定可=======
+  
+
+
+<form method="post" action="calc">
+
+  {% csrf_token %}
+
+RightAscension（デモ用：一部値のみ変更可）<br>
+<select name="ra_min1">
+  <option>03</option>
+</select>
+h
+<select name="ra_min2">
+  <option>19</option>
+</select>
+m
+<select name="ra_min3">
+  <option>48</option>
+</select>
+.
+<select name="ra_min4">
+  <option>20</option>
+  <option>19</option>
+</select>
+s
+
+-
+
+<select name="ra_max1">
+  <option>03</option>
+</select>
+h
+<select name="ra_max2">
+  <option>19</option>
+</select>
+m
+<select name="ra_max3">
+  <option>48</option>
+</select>
+.
+<select name="ra_max4">
+  <option>13</option>
+  <option>12</option>
+</select>
+s
+
+<br>
+Declination（デモ用：変更未実装）<br>
+<select name="dec_min1">
+  <option>41</option>
+</select>
+d
+<select name="dec_min2">
+  <option>30</option>
+</select>
+m
+<select name="dec_min3">
+  <option>42</option>
+</select>
+.
+<select name="dec_min4">
+  <option>5</option>
+</select>
+s
+
+-
+
+<select name="dec_max1">
+  <option>41</option>
+</select>
+d
+<select name="dec_max2">
+  <option>30</option>
+</select>
+m
+<select name="dec_max3">
+  <option>41</option>
+</select>
+.
+<select name="dec_max4">
+  <option>7</option>
+</select>
+s
+
+
+<br>
+<br>
+等高線最小レベル<br>
+<input type="text" name="min_lv" value="0.005157"> * <br>
+<input type="text" size="40" name="nseq" value="-1, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512"><br>
+ex)-1, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512
+
+<br>
+<br>
+
+X軸ラベル
+<input type="text" name="xlabel" value="ICRS Right Ascension">
+
+<br>
+
+Y軸ラベル
+<input type="text" name="ylabel" value="ICRS Declination">
+
+
+
+<br>
+
+
+  カラーマップ： 
+  <select name="cmap">
+    <option value="default">--</option>
+    <option value="rainbow">rainbow</option>
+    <option value="twilight">twilight</option>
+    <option value="twilight_shifted">twilight_shifted</option>
+    <option value="hsv">hsv</option>
+    <option value="bone">bone</option>
+    <option value="jet">jet</option>
+    <option value="flag">flag</option>
+    <option value="ocean">ocean</option>
+    <option value="gist_earth">gist_earth</option>
+    <option value="terrain">terrain</option>
+    <option value="gist_stern">gist_stern</option>
+    <option value="gnuplot">gnuplot</option>
+    <option value="gnuplot2">gnuplot2</option>
+    <option value="CMRmap">CMRmap</option>
+    <option value="cubehelix">cubehelix</option>
+    <option value="brg">brg</option>
+    <option value="gist_rainbow">gist_rainbow</option>
+    <option value="nipy_spectral">nupy_spectral</option>
+    <option value="gist_ncar">gist_ncar</option>
+  </select>
+<br>
+<a href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html" target="_blank">https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html</a>
+  <br>
+  <br>
+
+  <button type="submit"> 実行 </button>→実行後のグラフが右の領域に描画されます。上記の設定値の表示は初期値に戻されます。
+</form>
+
+<a href="{% static 'graph/a.png' %}" download="a.png">右の画像をダウンロード</a>
+<br>
+<br>
+
+<!--  <input type="text" name="val1">-->
+<form method="post" action="del_file">
+
+  {% csrf_token %}
+  <button type="submit"> クリア </button>
+</form>
+
+</div>
+<div style="">
+
+
+<img src="{% static 'graph/a.png' %}?{{ answer }}" style="border:1px solid gray;">
+
+</div>
+
+</div>
+
+</body>
+</html>
